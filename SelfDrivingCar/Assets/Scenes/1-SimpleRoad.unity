@@ -573,8 +573,8 @@ MonoBehaviour:
   Target: {fileID: 1123924094}
   CameraOffset: {x: 0, y: 5, z: -5}
   TargetOffset: {x: 0, y: 2, z: 0}
-  lerpPositionMultiplier: 1
-  lerpRotationMultiplier: 1
+  LerpPositionMultiplier: 1
+  LerpRotationMultiplier: 1
 --- !u!54 &92202958
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -10,52 +10,38 @@ public struct Wheel
     public WheelCollider collider;
 }
 
-public class CarController : MonoBehaviour
+public class CarPhysics : MonoBehaviour
 {
     public float MaxMotorTorque = 200.0f;
     public float MaxSteeringAngle = 30.0f;
     
+    // these are the "desired" values for motor, brake and steering
+    // corresponding Internal* fields is the actual value, using Mathf.Lerp() to smoothen the values
+    public float MotorTorque;
+    public float BrakeTorque;
+    public float SteeringAngle;
+
     public List<Wheel> DriveWheels;
     public List<Wheel> SteeringWheels;
     
     public event EventHandler<float> SpeedChanged;
-
-    float motorTorque;
-    float brakeTorque;
-    float steeringAngle;
     
-    InputAction moveInputAction, brakeInputAction;
+    float InternalMotorTorque;
+    float InternalSteeringAngle;
+
     Rigidbody rb;
     
     void Start()
     {
         rb = GetComponent<Rigidbody>(); 
         rb.centerOfMass = new Vector3(0f, 0.5f, 0f);
-        moveInputAction = GetComponent<PlayerInput>().actions.FindAction("Movement");
-        brakeInputAction = GetComponent<PlayerInput>().actions.FindAction("Brake");
     }
     
-    void Update()
+    void LateUpdate()
     {
-        // read speed input and set motor torque
-        var movement = moveInputAction.ReadValue<Vector2>();
-        motorTorque = Mathf.Lerp(motorTorque, movement.y * MaxMotorTorque, Time.deltaTime);
-        
-        // read brake input and set brake torque
-        brakeTorque = brakeInputAction.ReadValue<float>() > 0f ? 1000 : 0;
+        InternalMotorTorque = Mathf.Lerp(InternalMotorTorque, MotorTorque, Time.deltaTime);
+        InternalSteeringAngle = Mathf.Lerp(InternalSteeringAngle, SteeringAngle, Time.deltaTime);
 
-        OnSpeedChanged();
-
-        // if releasing key or turning the other direction, reset steeringAngle
-        if (movement.x == 0
-            || steeringAngle > 0 && movement.x < 0
-            || steeringAngle < 0 && movement.x > 0) 
-        {
-            steeringAngle = 0;
-        }
-        
-        steeringAngle = Mathf.Lerp(steeringAngle, movement.x * MaxSteeringAngle, Time.deltaTime);
-        
         Move();
         Turn();
         AnimateWheels();
@@ -72,17 +58,19 @@ public class CarController : MonoBehaviour
     {
         foreach (var wheel in DriveWheels)
         {
-            wheel.collider.brakeTorque = brakeTorque;
+            wheel.collider.brakeTorque = BrakeTorque;
         }
 
-        if (brakeTorque > 0f)
+        // don't speed up if we're braking car
+        if (BrakeTorque > 0f)
         {
-            motorTorque = 0f;
+            MotorTorque = 0f;
+            InternalMotorTorque = 0f;
         }
 
         foreach (var wheel in DriveWheels)
         {
-            wheel.collider.motorTorque = motorTorque;
+            wheel.collider.motorTorque = InternalMotorTorque;
         }
     }
     
@@ -90,7 +78,7 @@ public class CarController : MonoBehaviour
     {
         foreach (var wheel in SteeringWheels)
         {
-            wheel.collider.steerAngle = steeringAngle;
+            wheel.collider.steerAngle = InternalSteeringAngle;
         }
     }
 
