@@ -1,0 +1,190 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1123924080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2654870163288157969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a69a21a076184b15aa523e2dccd18cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxMotorTorque: 200
+  MaxSteeringAngle: 30
+  DriveWheels:
+  - model: {fileID: 4733896392169977844}
+    collider: {fileID: 6849633433647049664}
+  - model: {fileID: 7142373047985368965}
+    collider: {fileID: 6849633434790508638}
+  SteeringWheels:
+  - model: {fileID: 5670735931648983063}
+    collider: {fileID: 6849633433707561994}
+  - model: {fileID: 5824151339111460811}
+    collider: {fileID: 6849633433901228169}
+--- !u!114 &1123924095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2654870163288157969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 13769d9fa82824b2db1dbdfc1dddf29d, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6caee2e1-8b77-4d71-89d9-073ecf7e4b15
+    m_ActionName: CarControls/Movement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1123924080}
+        m_TargetAssemblyTypeName: CarController, Assembly-CSharp
+        m_MethodName: OnBrake
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 65738c95-5986-4a67-bd16-901f585961c0
+    m_ActionName: CarControls/Brake[/Keyboard/space]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: CarControls
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!1001 &6849633434439417058
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9926213
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.12125586
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 13.929
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921025284500626365, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8924224651542172659, guid: e40225560c743554a9857b07e4b535db, type: 3}
+      propertyPath: m_Name
+      value: CarYellowInputControlled
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e40225560c743554a9857b07e4b535db, type: 3}
+--- !u!1 &2654870163288157969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8924224651542172659, guid: e40225560c743554a9857b07e4b535db, type: 3}
+  m_PrefabInstance: {fileID: 6849633434439417058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5670735931648983063 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1277976768700824821, guid: e40225560c743554a9857b07e4b535db, type: 3}
+  m_PrefabInstance: {fileID: 6849633434439417058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5824151339111460811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1143144201890616105, guid: e40225560c743554a9857b07e4b535db, type: 3}
+  m_PrefabInstance: {fileID: 6849633434439417058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4733896392169977844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2214896899279620886, guid: e40225560c743554a9857b07e4b535db, type: 3}
+  m_PrefabInstance: {fileID: 6849633434439417058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7142373047985368965 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4327967078861214567, guid: e40225560c743554a9857b07e4b535db, type: 3}
+  m_PrefabInstance: {fileID: 6849633434439417058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &6849633433707561994 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 2090940648, guid: e40225560c743554a9857b07e4b535db, type: 3}
+  m_PrefabInstance: {fileID: 6849633434439417058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &6849633433901228169 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 1614027883, guid: e40225560c743554a9857b07e4b535db, type: 3}
+  m_PrefabInstance: {fileID: 6849633434439417058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &6849633433647049664 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 1934464802, guid: e40225560c743554a9857b07e4b535db, type: 3}
+  m_PrefabInstance: {fileID: 6849633434439417058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &6849633434790508638 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 1060488380, guid: e40225560c743554a9857b07e4b535db, type: 3}
+  m_PrefabInstance: {fileID: 6849633434439417058}
+  m_PrefabAsset: {fileID: 0}
