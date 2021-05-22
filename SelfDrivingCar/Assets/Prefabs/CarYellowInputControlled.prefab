@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxMotorTorque: 200
   MaxSteeringAngle: 30
+  MotorTorque: 0
+  BrakeTorque: 0
+  SteeringAngle: 0
   DriveWheels:
   - model: {fileID: 4733896392169977844}
     collider: {fileID: 6849633433647049664}
@@ -74,6 +77,18 @@ MonoBehaviour:
   m_DefaultActionMap: CarControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1063731390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2654870163288157969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168139d2b40fb4e5faff4069e51c924f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6849633434439417058
 PrefabInstance:
   m_ObjectHideFlags: 0

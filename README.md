@@ -11,4 +11,4 @@ Purpose of this material is primarily an introduction to programming and Unity, 
 
 ## Credits
 
-* CarController script based on [Unity Car Controller Tutorial : Wheel Collider Physics](https://www.youtube.com/watch?v=uSr5IfzclP8) video
+* CarPhysics script based on [Unity Car Controller Tutorial : Wheel Collider Physics](https://www.youtube.com/watch?v=uSr5IfzclP8) video
