@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [Serializable]
 public struct Wheel
@@ -16,15 +15,14 @@ public class CarPhysics : MonoBehaviour
     public float MaxSteeringAngle = 30.0f;
     
     // these are the "desired" values for motor, brake and steering
-    // corresponding Internal* fields is the actual value, using Mathf.Lerp() to smoothen the values
-    public float MotorTorque;
-    public float BrakeTorque;
-    public float SteeringAngle;
+    // corresponding Internal* fields has the actual values, using Mathf.Lerp() to smoothen
+    internal float MotorTorque;
+    internal float SteeringAngle;
+
+    internal float BrakeTorque;
 
     public List<Wheel> DriveWheels;
     public List<Wheel> SteeringWheels;
-    
-    public event EventHandler<float> SpeedChanged;
     
     float InternalMotorTorque;
     float InternalSteeringAngle;
@@ -40,19 +38,28 @@ public class CarPhysics : MonoBehaviour
     void LateUpdate()
     {
         InternalMotorTorque = Mathf.Lerp(InternalMotorTorque, MotorTorque, Time.deltaTime);
-        InternalSteeringAngle = Mathf.Lerp(InternalSteeringAngle, SteeringAngle, Time.deltaTime);
+
+        // if releasing key or turning the other direction, reset steeringAngle
+        if (SteeringAngle == 0
+            || SteeringAngle > 0 && InternalSteeringAngle < 0
+            || SteeringAngle < 0 && InternalSteeringAngle > 0)
+        {
+            InternalSteeringAngle = 0;
+        }
+        else
+        {
+            InternalSteeringAngle = Mathf.Lerp(InternalSteeringAngle, SteeringAngle, Time.deltaTime);
+        }
 
         Move();
         Turn();
         AnimateWheels();
-        OnSpeedChanged();
     }
 
-    protected virtual void OnSpeedChanged ()
-    {
-        // report speed in km/h
-        SpeedChanged?.Invoke (this, rb.velocity.magnitude * 3.6f);
-    }
+    /// <summary>
+    /// Speed in km/h
+    /// </summary>
+    public float Speed => rb.velocity.magnitude * 3.6f;
 
     void Move()
     {

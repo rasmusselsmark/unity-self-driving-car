@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,23 +17,12 @@ public class InputCarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // read speed input and set motor torque
+        // read speed input and set motor torque plus steering angle
         var movement = moveInputAction.ReadValue<Vector2>();
         m_CarPhysics.MotorTorque = movement.y * m_CarPhysics.MaxMotorTorque;
-        
+        m_CarPhysics.SteeringAngle = movement.x * m_CarPhysics.MaxSteeringAngle;
+
         // read brake input and set brake torque
         m_CarPhysics.BrakeTorque = brakeInputAction.ReadValue<float>() > 0f ? 1000 : 0;
-
-        // if releasing key or turning the other direction, reset steeringAngle
-        if (movement.x == 0
-            || m_CarPhysics.SteeringAngle > 0 && movement.x < 0
-            || m_CarPhysics.SteeringAngle < 0 && movement.x > 0) 
-        {
-            m_CarPhysics.SteeringAngle = 0;
-        }
-        else
-        {
-            m_CarPhysics.SteeringAngle = movement.x * m_CarPhysics.MaxSteeringAngle;
-        }
     }
 }
