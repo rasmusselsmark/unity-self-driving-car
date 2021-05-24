@@ -48,7 +48,10 @@ public class CarPhysics : MonoBehaviour
         }
         else
         {
-            InternalSteeringAngle = Mathf.Lerp(InternalSteeringAngle, SteeringAngle, Time.deltaTime);
+            InternalSteeringAngle = Mathf.Lerp(
+                InternalSteeringAngle,
+                Mathf.Clamp(SteeringAngle, -MaxSteeringAngle, MaxSteeringAngle),
+                Time.deltaTime);
         }
 
         Move();
