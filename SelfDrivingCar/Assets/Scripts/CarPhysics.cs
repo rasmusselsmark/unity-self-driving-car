@@ -54,6 +54,8 @@ public class CarPhysics : MonoBehaviour
                 Time.deltaTime);
         }
 
+        // print($"MotorTorque: {MotorTorque}; Speed: {Speed}");
+
         Move();
         Turn();
         AnimateWheels();

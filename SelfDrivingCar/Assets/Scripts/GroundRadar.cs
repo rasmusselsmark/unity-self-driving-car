@@ -6,9 +6,20 @@ public struct GroundScanResult
     public float Left { get; set; }
     public float Right { get; set; }
 }
+
 public class GroundRadar : MonoBehaviour
 {
     public bool ShowRayLines;
+
+    struct RoadRaycastHit
+    {
+        // angle to side of road
+        public float Angle;
+
+        // and distance from radar to where ray hit outside road (remember, this can be away from car)
+        public float RoadDistance;
+    }
+
     void Update()
     {
         Scan();
@@ -17,31 +28,61 @@ public class GroundRadar : MonoBehaviour
     public GroundScanResult Scan()
     {
         // raytrace each side, until we don't hit road  
-        var rightAngle = GetAngleWhenNoRoadRayTraceHit(-transform.up, +1);
-        var leftAngle = GetAngleWhenNoRoadRayTraceHit(-transform.up, -1);
+        var rightSideScan = FindSideOfRoadUsingRaycast(transform.forward, +1);
+        var leftSideScan = FindSideOfRoadUsingRaycast(transform.forward, -1);
 
         var result = new GroundScanResult
         {
-            Right = CalculateTriangleBaseSideLength(rightAngle),
-            Left = CalculateTriangleBaseSideLength(leftAngle),
+            Right = CalculateTriangleBaseSideLengthTan(rightSideScan.Angle, rightSideScan.RoadDistance),
+            Left = CalculateTriangleBaseSideLengthTan(leftSideScan.Angle, leftSideScan.RoadDistance),
         };
 
-        // print($"rightAngle: {rightAngle}; distance right: {result.Right}");
         return result;
     }
 
-    float GetAngleWhenNoRoadRayTraceHit(Vector3 vector, int increment)
+    /// <summary>
+    /// Returns angle and distance from radar to side of road. Either use -1 or +1 as increment to control if
+    /// looking left or right.
+    /// </summary>
+    /// <param name="vector">Forward scan vector for radar.</param>
+    /// <param name="increment">-1 to scan left side, +1 for right side.</param>
+    /// <returns></returns>
+    RoadRaycastHit FindSideOfRoadUsingRaycast(Vector3 vector, int increment)
     {
+        var result = new RoadRaycastHit();
+        var layerMask = LayerMask.GetMask("Road"); // only raycast road objects
+
+        // first find distance to road at angle 0, i.e. adjacent side in our right-angled triangle
+        // (where distance is opposite side)
+        if (Physics.Raycast(transform.position, vector, out var hit, 20f, layerMask))
+        {
+            // remember last hit, so we can return when no longer hitting ground
+            result.Angle = 0;
+            result.RoadDistance = hit.distance;
+        }
+        else
+        {
+            // we're apparently outside road, return 0
+            result.Angle = 0;
+            result.RoadDistance = 0;
+
+            return result;
+        }
+
+        // scan angles until we hit outside road
         var angle = 0;
 
-        while (-60 < angle && angle < 60)
+        // TODO: There is a possible optimization here :)
+        while (-85 < angle && angle < 85)
         {
             // rotate vector
-            var scanVector = Quaternion.AngleAxis(angle, transform.forward) * vector;
+            var scanVector = Quaternion.AngleAxis(angle, transform.up) * vector;
         
-            var layerMask = LayerMask.GetMask("Road"); // only raycast road objects
-            if (Physics.Raycast(transform.position, scanVector, out var hit, 5f, layerMask))
+            if (Physics.Raycast(transform.position, scanVector, out hit, 20f, layerMask))
             {
+                // remember last hit, so we can return when no longer hitting ground
+                result.Angle = angle;
+
                 if (ShowRayLines)
                 {
                     Utils.DrawLine(transform, transform.position + scanVector * hit.distance, Color.green);
@@ -54,22 +95,36 @@ public class GroundRadar : MonoBehaviour
                     Utils.DrawLine(transform, transform.position + scanVector * 5f, Color.yellow);
                 }
 
-                return angle;
+                return result;
             }
 
             angle += increment;
         }
 
-        return angle;
+        // for now return 0 length if outside road, need to figure out how to best handle this situation
+        return new RoadRaycastHit { Angle = angle, RoadDistance = 0.0f };
     }
 
-    float CalculateTriangleBaseSideLength(float degrees)
+    float CalculateTriangleBaseSideLengthSin(float degrees, float hypotenuse)
     {
         // see e.g. https://www.mathsisfun.com/algebra/trig-finding-side-right-triangle.html
-        // use tangent as we know angle of B (so A = 90 - B) and opposite side in right-angled triangle
-        // tan(A-angle) = a / b => tan(A-angle) * b = a => b = a / tan(A-angle)
+
+        // we know angle and hypotenuse in right-angled triangle, and need to find opposite side (which is the
+        // distance from side of road and end of scanning area)
+
+        // sin(degrees) = opposite / hypotenuse
+        // => sin(degrees) * hypotenuse = opposite
         
-        var rad = (90-degrees) * Mathf.PI / 180;
-        return transform.position.y / Mathf.Tan(rad);
+        var rad = degrees * Mathf.PI / 180; // Mathf.Sin uses radians instead of degrees
+        return Mathf.Abs(Mathf.Sin(rad) * hypotenuse);
+    }
+
+    float CalculateTriangleBaseSideLengthTan(float degrees, float adjacent)
+    {
+        // tan(degrees) = opposite / adjacent
+        // => oppsite = tan(degrees) * hypotenuse
+
+        var rad = degrees * Mathf.PI / 180; // Mathf.Sin uses radians instead of degrees
+        return Mathf.Abs(Mathf.Tan(rad) * adjacent);
     }
 }
