@@ -102,11 +102,9 @@ MonoBehaviour:
     sidewalkWidth: 2
     roadMaterial: {fileID: 2100000, guid: f182e2714eb8a714a99ed091081ce16c, type: 2}
     roadMaterials: []
-    roadPhysicsMaterial: {fileID: 2100000, guid: f182e2714eb8a714a99ed091081ce16c,
-      type: 2}
+    roadPhysicsMaterial: {fileID: 2100000, guid: f182e2714eb8a714a99ed091081ce16c, type: 2}
     roadPhysicsMaterials: []
-    connectionMaterial: {fileID: 2100000, guid: 3c555588afad81d428ad1704d5d015a7,
-      type: 2}
+    connectionMaterial: {fileID: 2100000, guid: 3c555588afad81d428ad1704d5d015a7, type: 2}
     isSideObject: 0
     isCustomRoad: 0
     subSegments: 0
@@ -156,6 +154,7 @@ MonoBehaviour:
     connectionAngle: 0
     connectionRadius: 0
     isRoadShape: 0
+    controlType: 0
   crossingCornerPresets: []
   sidewalkPresets: []
   textureData: []

@@ -169,9 +169,10 @@ MonoBehaviour:
   selRoadTexture: {fileID: 2800000, guid: 46e81e5d2c8b2144582558b65e45db86, type: 3}
   headerTexture: {fileID: 2800000, guid: 16ef664a0f7023c4a94fa58f50bf2899, type: 3}
   sceneGUITex: {fileID: 0}
+  soIcon: {fileID: 0}
   roadObjectsParent: {fileID: 400000}
   connectionObjectsParent: {fileID: 400002}
-  OQOOQOQQDD: {fileID: 0}
+  OCQDCOCDOD: {fileID: 0}
   roadTypes:
   - roadTypeName: Default Road
     id: 1
@@ -231,8 +232,7 @@ MonoBehaviour:
     roadMaterials: []
     roadPhysicsMaterial: {fileID: 0}
     roadPhysicsMaterials: []
-    connectionMaterial: {fileID: 2100000, guid: 3c555588afad81d428ad1704d5d015a7,
-      type: 2}
+    connectionMaterial: {fileID: 2100000, guid: 3c555588afad81d428ad1704d5d015a7, type: 2}
     isSideObject: 0
     isCustomRoad: 0
     subSegments: 0
@@ -282,6 +282,7 @@ MonoBehaviour:
     connectionAngle: 0
     connectionRadius: 0
     isRoadShape: 0
+    controlType: 0
   selectedRoadType: 0
   selectedNewRoadType: 0
   inspRoadTypes: []
@@ -291,10 +292,8 @@ MonoBehaviour:
   roadMaterial: {fileID: 2100000, guid: f182e2714eb8a714a99ed091081ce16c, type: 2}
   crossingMaterial: {fileID: 2100000, guid: f182e2714eb8a714a99ed091081ce16c, type: 2}
   roundAboutMaterial: {fileID: 2100000, guid: 55e19257e99adea4380d1160ee92af9f, type: 2}
-  roundAboutConnectionMaterial: {fileID: 2100000, guid: ce8bb957aa39a384eb46fd561e66303f,
-    type: 2}
-  roundAboutRoadMaterial: {fileID: 2100000, guid: f182e2714eb8a714a99ed091081ce16c,
-    type: 2}
+  roundAboutConnectionMaterial: {fileID: 2100000, guid: ce8bb957aa39a384eb46fd561e66303f, type: 2}
+  roundAboutRoadMaterial: {fileID: 2100000, guid: f182e2714eb8a714a99ed091081ce16c, type: 2}
   sidewalkMaterial: {fileID: 0}
   targetMaterial: {fileID: 0}
   sourceTerrain: {fileID: 0}
@@ -460,7 +459,7 @@ MonoBehaviour:
   showSurfaces: 0
   useLightProbes: 0
   hideLockedObjects: 0
-  OCCQQOCOQO: 0
+  ODDQQQOCOO: 0
   isInBuildMode: 0
   progressFlag: 0
   progressTerrain: 1
@@ -526,6 +525,8 @@ MonoBehaviour:
   minMarkerDistance: 100
   maxMarkerDistance: 500
   debugFlag: 0
+  leftTHandles: []
+  rightTHandles: []
   roadNetworkY: 0
   ignoreMinIndents: 0
   zoomStart: {x: 0, y: 0, z: 0}
@@ -538,15 +539,15 @@ MonoBehaviour:
   dirtyBool: 0
   dirtyOnSceneBool: 0
   forceRoadNetworkSelect: 0
-  ODDDDDQQDO: 1
-  OQOOQOQQDDScript: {fileID: 0}
-  OCOCOOQOQQCrossingsScript: {fileID: 0}
-  OCOCOOQOQQScript: {fileID: 0}
-  OQOOQOQQDDElement: -1
-  OCQDQOQOCD: -1
-  OQDODDOCCO: {fileID: 0}
-  OQDODQCQCQ: {fileID: 0}
-  OQDODQCOCO: -1
+  OQQQCQOOCO: 1
+  OCQDCOCDODScript: {fileID: 0}
+  OQDOODDQCQCrossingsScript: {fileID: 0}
+  OQDOODDQCQScript: {fileID: 0}
+  OCQDCOCDODElement: -1
+  OODCCDOQDD: -1
+  OOCCOCQODO: {fileID: 0}
+  OOCCODCCQD: {fileID: 0}
+  OODOQODCCO: -1
   selectedRoadSOMarker: -1
   selectedMarkerNode: -1
   selectedMarkerNodes: 
@@ -618,8 +619,8 @@ MonoBehaviour:
   lockRoadNetwork: 0
   showNotifications: 1
   multipleTerrainsWarning: 0
-  ODDCCDQDCD: []
-  OCQCQQQQCQ: []
+  OOCCDQQCQC: []
+  OCCOQQQOOQ: []
   textureCounter: 0
   vegetationStudio: 0
   vegetationStudioPro: 0
@@ -647,5 +648,9 @@ MonoBehaviour:
   updateQueue: 0
   logChange: 0
   debugMode: 0
+  RoadNetworkInitFlag: 0
   excludeFromSelection: []
   addExcludeFromSelection: {fileID: 0}
+  shapeUVColor: {r: 0, g: 0, b: 0, a: 1}
+  startCapColor: {r: 0.35, g: 0.5, b: 0.9, a: 1}
+  endCapColor: {r: 0.35, g: 0.5, b: 0.9, a: 1}
