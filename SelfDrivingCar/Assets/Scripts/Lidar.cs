@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -12,45 +13,66 @@ public class Lidar : MonoBehaviour
     public float RayDistance = 50f;
     public bool ShowRayLines;
 
-    void FixedUpdate()
-    {
-        Scan();
-    }
-
     /// <summary>
     /// Scan area using ray casts
     /// </summary>
     /// <returns>List of game objects within <see cref="RayDistance"/> from radar;</returns>
-    public List<GameObject> Scan()
+    public List<LidarScanObject> Scan(int fromAngle = -45, int toAngle = 45)
     {
-        var objects = new List<GameObject>();
+        if (fromAngle > toAngle)
+        {
+            throw new ArgumentException($"{nameof(fromAngle)} must be smaller than {nameof(toAngle)}");
+        }
 
+        var scanObjects = new List<LidarScanObject>();
         var forwardVector = transform.forward;
-        for (int angle = -45; angle < 45; angle++)
+        for (int angle = fromAngle; angle < toAngle; angle++)
         {
             // rotate around world space up, not local space (as car tilts a bit when turning)
             var scanVector = Quaternion.AngleAxis(angle, Vector3.up) * forwardVector;
             if (Physics.Raycast(transform.position, scanVector, out var hit, RayDistance))
             {
-                if (!objects.Contains(hit.collider.gameObject))
+                var lidarObject = scanObjects.FirstOrDefault(o => o.gameObject == hit.collider.gameObject);
+                if (lidarObject == null)
                 {
-                    objects.Add(hit.collider.gameObject);
+                    scanObjects.Add(new LidarScanObject
+                    {
+                        gameObject = hit.collider.gameObject,
+                        distance = hit.distance,
+                        collider = hit.collider,
+                        startAngle = angle
+                    });
+                }
+                else
+                {
+                    lidarObject.endAngle = angle;
                 }
 
                 if (ShowRayLines)
                 {
-                    Utils.DrawLine(transform, transform.position + scanVector * hit.distance, Color.yellow);
+                    var t = transform;
+                    Utils.DrawLine(t, t.position + scanVector * hit.distance, Color.yellow);
                 }
             }
             else
             {
                 if (ShowRayLines)
                 {
-                    Utils.DrawLine(transform, transform.position + scanVector * RayDistance, Color.green);
+                    var t = transform;
+                    Utils.DrawLine(t, t.position + scanVector * RayDistance, Color.green);
                 }
             }
         }
 
-        return objects;
+        return scanObjects;
+    }
+
+    public class LidarScanObject
+    {
+        public GameObject gameObject;
+        public float distance;
+        public Collider collider;
+        public int startAngle;
+        public int endAngle;
     }
 }
